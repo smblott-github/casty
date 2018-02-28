@@ -1,0 +1,18 @@
+{
+  "name": "casty",
+  "version": "1.0.0",
+  "description": "A hokey chromecast client.",
+  "main": "casty.coffee",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Stephen Blott",
+  "license": "ISC",
+  "dependencies": {
+    "chromecast-player": "^0.2.3",
+    "chromecast-scanner": "^0.5.0"
+  },
+  "bin": {
+    "cast": "casty.coffee"
+  }
+}
