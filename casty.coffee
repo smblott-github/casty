@@ -27,6 +27,9 @@ aliases =
 if 0 < args.length and args[0] of aliases
   opts.address = aliases[args.shift()]
 
+if args.length == 1 and args[0] in ["play", "dvr"]
+  args.shift()
+
 if args.length == 0
   fs.readFile "/etc/radio-url.txt", unlessError (data) ->
     media =
