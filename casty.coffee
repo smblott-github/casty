@@ -1,6 +1,7 @@
 #!/usr/bin/env coffee
 
 fs = require "fs"
+extend = require "extend"
 player = require("chromecast-player")()
 args = process.argv[2..]
 opts = address: "chromecast-kitchen"
@@ -33,12 +34,16 @@ if args.length == 1 and args[0] in ["play", "dvr"]
 if args.length == 0
   fs.readFile "/etc/radio-url.txt", unlessError (data) ->
     media =
-      path: data.toString()
+      path: data.toString().trim()
       type: "audio/mpeg"
+      streamType: "LIVE"
+      autoplay: true
+
+    extend media, opts
 
     player.launch media, unlessError (p) ->
-      p.once "playing", ->
-        console.log "Sundtek Radio (playing)"
+      p.once "playing", ({playerState})->
+        console.log "Sundtek Radio (#{playerState.toLowerCase()})"
         process.exit 0
 
 else
@@ -47,6 +52,11 @@ else
     message += " (muted)" if volume.muted
     console.log message
     process.exit()
+
+  showStatus = (p) ->
+    p.getStatus unlessError (status) ->
+      console.log status.playerState.toLowerCase()
+      process.exit()
 
   setVolume = (p, level) ->
     p.setVolume Math.max(0.0, Math.min 1.0, level), unlessError showVolume
@@ -83,6 +93,19 @@ else
       p.stop unlessError (status) ->
         console.log status.playerState.toLowerCase()
         process.exit()
+
+    pause: (p, ctx, args) ->
+      p.getStatus unlessError (status) ->
+        state = status.playerState.toLowerCase()
+        toggler = (if state == "playing" then p.pause else p.play).bind p
+        toggler unlessError -> showStatus p
+
+    status: showStatus
+
+    playing: (p, ctx, args) ->
+      p.getStatus unlessError (status) ->
+        state = status.playerState.toLowerCase()
+        process.exit (if state == "playing" then 0 else 1)
 
   handlers.vol = handlers.volume
   handlers.loud = handlers.louder
