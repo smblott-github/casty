@@ -31,7 +31,21 @@ if 0 < args.length and args[0] of aliases
 if args.length == 1 and args[0] in ["play", "dvr"]
   args.shift()
 
-if args.length == 0
+showVolume = (volume) ->
+  message = "#{Math.round volume.level * 100}"
+  message += " (muted)" if volume.muted
+  console.log message
+  process.exit()
+
+showStatus = (p) ->
+  p.getStatus unlessError (status) ->
+    console.log status.playerState.toLowerCase()
+    process.exit()
+
+setVolume = (p, level) ->
+  p.setVolume Math.max(0.0, Math.min 1.0, level), unlessError showVolume
+
+launchRadio = (callback) ->
   fs.readFile "/etc/radio-url.txt", unlessError (data) ->
     media =
       path: data.toString().trim()
@@ -44,23 +58,17 @@ if args.length == 0
     player.launch media, unlessError (p) ->
       p.once "playing", ({playerState})->
         console.log "Sundtek Radio (#{playerState.toLowerCase()})"
-        process.exit 0
+        callback p
+
+if args.length == 0
+  launchRadio -> process.exit 0
+
+if args.length == 2 and args[0] == "wake"
+  args.shift()
+  launchRadio (p) ->
+    setVolume p, (parseInt args.shift()) / 100.0
 
 else
-  showVolume = (volume) ->
-    message = "#{Math.round volume.level * 100}"
-    message += " (muted)" if volume.muted
-    console.log message
-    process.exit()
-
-  showStatus = (p) ->
-    p.getStatus unlessError (status) ->
-      console.log status.playerState.toLowerCase()
-      process.exit()
-
-  setVolume = (p, level) ->
-    p.setVolume Math.max(0.0, Math.min 1.0, level), unlessError showVolume
-
   handlers =
     volume: (p, ctx, args) ->
       if args.length == 0
