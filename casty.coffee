@@ -4,7 +4,7 @@ fs = require "fs"
 extend = require "extend"
 player = require("chromecast-player")()
 args = process.argv[2..]
-opts = address: "chromecast-kitchen", tty: 20000
+opts = address: "chromecast-kitchen"
 
 unlessError = (callback) -> (err, args...) ->
   if err
