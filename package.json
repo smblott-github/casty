@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A hokey chromecast client.",
   "main": "casty.coffee",
+  "repository": "https://github.com/smblott-github/casty",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
