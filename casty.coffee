@@ -6,6 +6,8 @@ player = require("chromecast-player")()
 args = process.argv[2..]
 opts = address: "chromecast-kitchen"
 
+stepInterval = 0.05
+
 unlessError = (callback) -> (err, args...) ->
   if err
     console.error err.toString()
@@ -78,19 +80,19 @@ else
 
     louder: (p, ctx, args) ->
       p.getVolume unlessError (volume) ->
-        setVolume p, volume.level + volume.stepInterval
+        setVolume p, volume.level + stepInterval
 
     LOUDER: (p, ctx, args) ->
       p.getVolume unlessError (volume) ->
-        setVolume p, volume.level + 3 * volume.stepInterval
+        setVolume p, volume.level + 3 * stepInterval
 
     quieter: (p, ctx, args) ->
       p.getVolume unlessError (volume) ->
-        setVolume p, volume.level - volume.stepInterval
+        setVolume p, volume.level - stepInterval
 
     QUIETER: (p, ctx, args) ->
       p.getVolume unlessError (volume) ->
-        setVolume p, volume.level - 3 * volume.stepInterval
+        setVolume p, volume.level - 3 * stepInterval
 
     mute: (p, ctx, args) ->
       p.getVolume unlessError (volume) ->
