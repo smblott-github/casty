@@ -20,8 +20,8 @@ unlessError = (callback) -> (err, args...) ->
 aliases =
    kitchen: chromecast_kitchen
    k: chromecast_kitchen
-   bedroom: chromecast_bedroom
-   b: chromecast_bedroom
+   bedroom: "192.168.3.34"
+   b: "192.168.3.34"
    living:  chromecast_living
    l: chromecast_living
    studio:  chromecast_studio
@@ -63,9 +63,9 @@ launchRadio = (callback) ->
         callback p
 
 if args.length == 0
-  launchRadio -> process.exit 0
+  launchRadio (p) -> process.exit 0
 
-if args.length == 2 and args[0] == "wake"
+else if args.length == 2 and args[0] == "wake"
   args.shift()
   launchRadio (p) ->
     setVolume p, (parseInt args.shift()) / 100.0
