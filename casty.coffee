@@ -6,7 +6,7 @@ player = require("chromecast-player")()
 args = process.argv[2..]
 opts = address: "chromecast-kitchen"
 
-stepInterval = 0.05
+stepInterval = 0.02
 
 unlessError = (callback) -> (err, args...) ->
   if err
