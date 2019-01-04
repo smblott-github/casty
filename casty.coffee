@@ -50,19 +50,18 @@ setVolume = (p, level) ->
   p.setVolume Math.max(0.0, Math.min 1.0, level), unlessError showVolume
 
 launchRadio = (callback) ->
-  fs.readFile "/etc/radio-url.txt", unlessError (data) ->
-    media =
-      path: data.toString().trim()
-      type: "audio/mpeg"
-      streamType: "LIVE"
-      autoplay: true
+  media =
+    path: "http://192.168.3.12:8088/sundtek.mp3"
+    type: "audio/mpeg"
+    streamType: "LIVE"
+    autoplay: true
 
-    extend media, opts
+  extend media, opts
 
-    player.launch media, unlessError (p) ->
-      p.once "playing", ({playerState})->
-        console.log "Sundtek Radio (#{playerState.toLowerCase()})"
-        callback p
+  player.launch media, unlessError (p) ->
+    p.once "playing", ({playerState})->
+      console.log "Sundtek Radio (#{playerState.toLowerCase()})"
+      callback p
 
 if args.length == 0
   launchRadio (p) -> process.exit 0
