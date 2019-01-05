@@ -51,8 +51,8 @@ setVolume = (p, level) ->
 
 launchRadio = (callback) ->
   media =
-    path: "http://192.168.3.12:8088/sundtek.mp3"
-    type: "audio/mpeg"
+    path: "http://192.168.3.12:8088/sundtek"
+    type: "audio/ogg"
     streamType: "LIVE"
     autoplay: true
 
