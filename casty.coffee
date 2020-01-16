@@ -20,8 +20,8 @@ unlessError = (callback) -> (err, args...) ->
 aliases =
    kitchen: chromecast_kitchen
    k: chromecast_kitchen
-   bedroom: "192.168.3.34"
-   b: "192.168.3.34"
+   bedroom: chromecast_bedroom
+   b: chromecast_bedroom
    living:  chromecast_living
    l: chromecast_living
    studio:  chromecast_studio
