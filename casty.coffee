@@ -61,11 +61,11 @@ stations =
     name: "RTE Radio 1"
     url: "http://av.rasset.ie/av/live/radio/radio1.m3u"
 
-station = stations["r4"]
-
 if 0 < args.length and args[0] of stations
   station = stations[args[0]]
   args.shift()
+else
+  station = stations["r4"]
 
 launchRadio = (callback) ->
   media =
