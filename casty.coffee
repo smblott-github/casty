@@ -47,31 +47,29 @@ showStatus = (p) ->
 setVolume = (p, level) ->
   p.setVolume Math.max(0.0, Math.min 1.0, level), unlessError showVolume
 
-bbc_radio_4 = "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/nonuk/sbr_vlow/llnw/bbc_radio_fourfm.m3u8"
-bbc_radio_5_live = "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/nonuk/sbr_vlow/llnw/bbc_radio_five_live.m3u8"
-bbc_world_service = "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/nonuk/sbr_vlow/llnw/bbc_world_service.m3u8"
-rte_radio_1 = "http://av.rasset.ie/av/live/radio/radio1.m3u"
+stations =
+  r4:
+    name: "BBC Radio 4"
+    url: "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/nonuk/sbr_vlow/llnw/bbc_radio_fourfm.m3u8"
+  r5:
+    name: "BBC Radio 5 Live"
+    url: "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/nonuk/sbr_vlow/llnw/bbc_radio_five_live.m3u8"
+  ws:
+    name: "BBC World Service"
+    url: "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/nonuk/sbr_vlow/llnw/bbc_world_service.m3u8"
+  rr1:
+    name: "RTE Radio 1"
+    url: "http://av.rasset.ie/av/live/radio/radio1.m3u"
 
-if 0 < args.length
-  switch args[0]
-    when "r4"
-      radio_url = bbc_radio_4
-      args.shift()
-    when "r5"
-      radio_url = bbc_radio_5_live
-      args.shift()
-    when "ws"
-      radio_url = bbc_world_service
-      args.shift()
-    when "rr1"
-      radio_url = rte_radio_1
-      args.shift()
-    else
-      radio_url = bbc_radio_4
+station = stations["r4"]
+
+if 0 < args.length and args[0] of stations
+  station = stations[args[0]]
+  args.shift()
 
 launchRadio = (callback) ->
   media =
-    path: radio_url
+    path: station.url
     streamType: "LIVE"
     autoplay: true
 
@@ -79,7 +77,7 @@ launchRadio = (callback) ->
 
   player.launch media, unlessError (p) ->
     p.once "playing", ({playerState})->
-      console.log "Radio (#{playerState.toLowerCase()})"
+      console.log "#{station.name} (#{playerState.toLowerCase()})"
       callback p
 
 if args.length == 0
