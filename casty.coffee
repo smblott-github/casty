@@ -56,7 +56,6 @@ launchRadio = (callback) ->
 
   media =
     path: "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/nonuk/sbr_vlow/llnw/bbc_radio_fourfm.m3u8"
-    type: "audio/ogg"
     streamType: "LIVE"
     autoplay: true
 
