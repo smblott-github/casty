@@ -14,8 +14,8 @@ unlessError = (callback) -> (err, args...) ->
     process.exit 1
   callback args...
 
-[chromecast_kitchen, chromecast_bedroom, chromecast_living, chromecast_studio, chromecast_den] =
-  ["chromecast-kitchen", "chromecast-bedroom", "chromecast-living", "chromecast-studio", "chromecast-den"]
+[chromecast_kitchen, chromecast_bedroom, chromecast_living, chromecast_office] =
+  ["chromecast-kitchen-speaker", "chromecast-bedroom", "chromecast-living", "chromecast-office"]
 
 aliases =
    kitchen: chromecast_kitchen
@@ -24,10 +24,8 @@ aliases =
    b: chromecast_bedroom
    living:  chromecast_living
    l: chromecast_living
-   studio:  chromecast_studio
-   s:  chromecast_studio
-   d:  chromecast_den
-   den:  chromecast_den
+   studio:  chromecast_office
+   s:  chromecast_office
 
 if 0 < args.length and args[0] of aliases
   opts.address = aliases[args.shift()]
