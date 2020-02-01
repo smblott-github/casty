@@ -47,15 +47,31 @@ showStatus = (p) ->
 setVolume = (p, level) ->
   p.setVolume Math.max(0.0, Math.min 1.0, level), unlessError showVolume
 
-launchRadio = (callback) ->
-  # media =
-  #   path: "http://192.168.3.12:8088/sundtek"
-  #   type: "audio/ogg"
-  #   streamType: "LIVE"
-  #   autoplay: true
+bbc_radio_4 = "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/nonuk/sbr_vlow/llnw/bbc_radio_fourfm.m3u8"
+bbc_radio_5_live = "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/nonuk/sbr_vlow/llnw/bbc_radio_five_live.m3u8"
+bbc_world_service = "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/nonuk/sbr_vlow/llnw/bbc_world_service.m3u8"
+rte_radio_1 = "http://av.rasset.ie/av/live/radio/radio1.m3u"
 
+if 0 < args.length
+  switch args[0]
+    when "r4"
+      radio_url = bbc_radio_4
+      args.shift()
+    when "r5"
+      radio_url = bbc_radio_5_live
+      args.shift()
+    when "ws"
+      radio_url = bbc_world_service
+      args.shift()
+    when "rr1"
+      radio_url = rte_radio_1
+      args.shift()
+    else
+      radio_url = bbc_radio_4
+
+launchRadio = (callback) ->
   media =
-    path: "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/nonuk/sbr_vlow/llnw/bbc_radio_fourfm.m3u8"
+    path: radio_url
     streamType: "LIVE"
     autoplay: true
 
