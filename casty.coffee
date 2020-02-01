@@ -48,8 +48,14 @@ setVolume = (p, level) ->
   p.setVolume Math.max(0.0, Math.min 1.0, level), unlessError showVolume
 
 launchRadio = (callback) ->
+  # media =
+  #   path: "http://192.168.3.12:8088/sundtek"
+  #   type: "audio/ogg"
+  #   streamType: "LIVE"
+  #   autoplay: true
+
   media =
-    path: "http://192.168.3.12:8088/sundtek"
+    path: "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/nonuk/sbr_vlow/llnw/bbc_radio_fourfm.m3u8"
     type: "audio/ogg"
     streamType: "LIVE"
     autoplay: true
@@ -58,7 +64,7 @@ launchRadio = (callback) ->
 
   player.launch media, unlessError (p) ->
     p.once "playing", ({playerState})->
-      console.log "Sundtek Radio (#{playerState.toLowerCase()})"
+      console.log "Radio (#{playerState.toLowerCase()})"
       callback p
 
 if args.length == 0
