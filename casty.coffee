@@ -60,12 +60,16 @@ stations =
   rr1:
     name: "RTE Radio 1"
     url: "http://av.rasset.ie/av/live/radio/radio1.m3u"
+  ufm:
+    name: "UFM/DSB-R100 Radio"
+    url: "http://192.168.3.12:8088/sundtek"
 
 if 0 < args.length and args[0] of stations
   station = stations[args[0]]
   args.shift()
 else
   station = stations["r4"]
+  station = stations["ufm"]
 
 launchRadio = (callback) ->
   media =
