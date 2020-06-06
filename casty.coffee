@@ -19,15 +19,17 @@ unlessError = (callback) -> (err, args...) ->
 
 aliases =
    kitchen: chromecast_kitchen
-   k: chromecast_kitchen
+   k:       chromecast_kitchen
    bedroom: chromecast_bedroom
-   b: chromecast_bedroom
+   b:       chromecast_bedroom
    living:  chromecast_living
-   l: chromecast_living
+   l:       chromecast_living
    studio:  chromecast_studio
-   s:  chromecast_studio
+   s:       chromecast_studio
+   yoga:    chromecast_studio
+   y:       chromecast_studio
    office:  chromecast_office
-   i:  chromecast_office
+   o:       chromecast_office
 
 if 0 < args.length and args[0] of aliases
   opts.address = aliases[args.shift()]
