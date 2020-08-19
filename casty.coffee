@@ -64,6 +64,10 @@ stations =
   rr1:
     name: "RTE Radio 1"
     url: "http://av.rasset.ie/av/live/radio/radio1.m3u"
+  cfm:
+    name: "Classic FM"
+    # url: "http://media-ice.musicradio.com:80/ClassicFM"
+    url: "http://media-ice.musicradio.com:80/ClassicFMMP3"
   ufm:
     name: "UFM/DSB-R100 Radio"
     url: "http://192.168.3.12:8088/sundtek"
