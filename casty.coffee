@@ -68,6 +68,9 @@ stations =
     name: "Classic FM"
     # url: "http://media-ice.musicradio.com:80/ClassicFM"
     url: "http://media-ice.musicradio.com:80/ClassicFMMP3"
+  tr:
+    name: "Times Radio"
+    url: "http://timesradio.wireless.radio/stream?ref=rf"
   ufm:
     name: "UFM/DSB-R100 Radio"
     url: "http://192.168.3.12:8088/sundtek"
